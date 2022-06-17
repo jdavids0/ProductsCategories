@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Product Page";
+}
+
+@model Association
+
+<div class="container text-center mt-5">
+    <h1>@ViewBag.OneProduct.Name</h1>
+    <div class="d-flex justify-content-between">
+        <div>
+            <h4>Categories:</h4>
+            <table class="table">
+                @foreach(Category cat in ViewBag.ProductCategories)
+                {
+                    <tr>
+                        <td>@cat.CategoryName</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div>
+            <form asp-action="CategoryToProduct" asp-controller="Home" method="post">
+                <div class="form-group">
+                    <input type="hidden" asp-for="ProductID" value="@ViewBag.OneProduct.ProductID">
+                    <label for="CategoryID">Add Category:</label>
+                    <select asp-for="CategoryID" class="form-control">
+                        <option value="" selected disabled>Select</option>
+                        @foreach(Category c in ViewBag.AllCategories)
+                        {
+                            <option value="@c.CategoryID">@c.CategoryName</option>
+                        }
+
+                    </select>
+                </div>
+                <input type="submit" value="Add" class="btn btn-success btn-outline-dark text-white">
+            </form>
+        </div>
+    </div>
+</div>
